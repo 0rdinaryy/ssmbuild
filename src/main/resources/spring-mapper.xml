@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--spring关联数据库配置文件
+        https://blog.csdn.net/qq_45873768/article/details/105336393
+    -->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--使用c3p0连接池-->
+    <!--
+        dbcp:半自动化操作，不能自动连接
+        c3p0：自动化操作（自动化的加载配置文件，自动配置到对象中）
+        druid：hikari
+    -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${driver}"/>
+        <property name="jdbcUrl" value="${url}"/>
+        <property name="user" value="${user}"/>
+        <property name="password" value="${pwd}"/>
+    </bean>
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 绑定Mybatis的配置文件-->
+        <!--mybatis和spring就整合起来了-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+<!--        <property name="mapperLocations">-->
+<!--            <list>-->
+<!--                <value>classpath*:com/kqt/mapper/*.xml</value>-->
+<!--            </list>-->
+<!--        </property>-->
+    </bean>
+
+<!--    <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">-->
+<!--        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="booksMapperImpl" class="com.kqt.mapper.BooksMapperImpl">-->
+<!--        <property name="sqlSession" ref="sqlSession"/>-->
+<!--    </bean>-->
+
+    <!--
+        配置mapper接口扫描包，动态实现mapper接口可以注入到spring容器中
+        公司主流
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" id="mapperScannerConfigurer">
+<!--        <property name="sqlSessionTemplateBeanName" value="sqlSession"/>-->
+        <!--注入sqlSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--扫描mapper包-->
+        <property name="basePackage" value="com.kqt.mapper"/>
+    </bean>
+
+
+
+</beans>

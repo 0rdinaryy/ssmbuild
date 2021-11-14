@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="spring-mapper.xml"/>
+    <import resource="spring-service.xml"/>
+    <import resource="spring-mvc.xml"/>
+
+
+    <!--注册BooksMapperImpl这个实现类，getBean("booksMapperImpl")
+        就能拿到BooksMapperImpl这个对象，不用new
+        -->
+<!--    <bean id="BooksMapperImpl" class="com.kqt.mapper.BooksMapperImpl">-->
+<!--        <property name="sqlSession" ref="sqlSession"/>-->
+<!--    </bean>-->
+
+</beans>
