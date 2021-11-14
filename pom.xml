@@ -7,7 +7,6 @@
     <groupId>com.kqt</groupId>
     <artifactId>ssmbuild</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <!--防止出现资源无法导出的问题-->
     <build>
         <resources>
