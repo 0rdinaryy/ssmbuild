@@ -45,6 +45,7 @@
         <!--数据源-->
         <!--数据库连接池 c3p0 超市订单管理系统用的是dbcp-->
         <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+        <!-- 添加的东西 -->
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
